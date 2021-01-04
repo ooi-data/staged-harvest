@@ -34,7 +34,7 @@ jobs:
             # Avoid wasting CI time if there are no harvest ready for conversion
             if [ "$(ls instruments/*/meta.yaml | grep -v instruments/example/meta.yaml --count)" -eq 0 ]; then
               echo "No new instrument harvest found, exiting..."
-              source ./.ci_scripts/create_harvests
               exit 0
             fi
             echo "Creating instrument harvest from the meta."
+            source ./.ci_scripts/create_harvests
