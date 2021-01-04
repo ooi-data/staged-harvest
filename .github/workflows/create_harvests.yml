@@ -3,7 +3,7 @@ name: Create instruments harvest
 on:
   push:
     branches:
-      - master
+      - main
   schedule:
     - cron:  '*/5 * * * *'
 
