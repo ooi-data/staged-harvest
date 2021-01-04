@@ -1,0 +1,39 @@
+name: Create instruments harvest
+
+on:
+  push:
+    branches:
+      - master
+  schedule:
+    - cron:  '*/5 * * * *'
+
+jobs:
+  create-harvests:
+    if: github.repository == 'ooi-data/staged-harvest'
+    name: Create instruments harvest
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Prevent multiple jobs running in parallel
+        id: conversion_lock
+        uses: softprops/turnstyle@v1
+        with:
+          abort-after-seconds: 3
+          poll-interval-seconds: 2
+        continue-on-error: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Run instrument harvest creation
+        # outcome is evaluated before continue-on-error above
+        if: ${{ steps.conversion_lock.outcome == 'success' }}
+        run: |
+            # Avoid wasting CI time if there are no harvest ready for conversion
+            if [ "$(ls instruments/*/meta.yaml | grep -v */meta.yaml --count)" -eq 0 ]; then
+              echo "No new instrument harvest found, exiting..."
+              exit 0
+            fi
+            echo "Creating instrument harvest from the meta."
