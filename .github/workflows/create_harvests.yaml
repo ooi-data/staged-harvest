@@ -32,7 +32,7 @@ jobs:
         if: ${{ steps.conversion_lock.outcome == 'success' }}
         run: |
             # Avoid wasting CI time if there are no harvest ready for conversion
-            if [ "$(ls instruments/*/meta.yaml | grep -v */meta.yaml --count)" -eq 0 ]; then
+            if [ "$(ls instruments/*/meta.yaml | grep -v instruments/example/meta.yaml --count)" -eq 0 ]; then
               echo "No new instrument harvest found, exiting..."
               exit 0
             fi

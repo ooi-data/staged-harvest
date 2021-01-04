@@ -1,0 +1,15 @@
+instrument:
+    name: example
+
+harvest_config:
+    refresh: True
+    frequency: daily
+    skip_harvest: False
+    skip_stream: ''
+    
+output:
+  format: zarr
+  target:
+    urlpath: s3://ooi-data
+    
+extra_attributes: {}
