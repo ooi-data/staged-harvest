@@ -34,6 +34,7 @@ touch ~/miniconda/conda-meta/pinned
 source ~/miniconda/bin/activate root
 
 conda install --yes --quiet \
+  pip \
   git=2.12.2 \
   "gitpython>=3.0.8" \
   requests
@@ -41,9 +42,13 @@ conda install --yes --quiet \
 conda info
 conda config --get
 
+pip install git+https://github.com/ooi-data/ooi-harvester.git@main
+
 set +x
 mkdir -p ~/.ooi-harvester
 set -x
 
 echo "Current branch is ${CF_CURRENT_BRANCH}"
 ls ~/.ooi-harvester
+
+conda list | grep ooi-harvester
