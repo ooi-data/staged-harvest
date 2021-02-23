@@ -54,7 +54,7 @@ jobs:
           python-version: ${{ env.PYTHON_VERSION }}
       - name: Cache conda
         uses: actions/cache@v2
-        if: steps.harvest_check.outputs.run_harvest == 'yes'
+        if: ${{ success() }}
         env:
           # Increase this value to reset cache if environment.yaml has not changed
           CACHE_NUMBER: 0
@@ -62,7 +62,7 @@ jobs:
           path: ~/conda_pkgs_dir
           key: ${{ runner.os }}-conda-${{ env.CACHE_NUMBER }}-${{ hashFiles('environment.yaml') }}
       - name: Setup miniconda
-        if: steps.harvest_check.outputs.run_harvest == 'yes'
+        if: ${{ success() }}
         uses: conda-incubator/setup-miniconda@v2
         with:
           activate-environment: ${{ env.CONDA_ENV }}
@@ -71,12 +71,13 @@ jobs:
           auto-activate-base: false
           use-only-tar-bz2: true
       - name: Print conda env
-        if: steps.harvest_check.outputs.run_harvest == 'yes'
+        if: ${{ success() }}
         shell: bash -l {0}
         run: |
           conda info
           conda list
       - name: Run instrument stream creation
+        if: ${{ success() }}
         shell: bash -l {0}
         env:
           AWS_KEY: ${{ secrets.AWS_KEY }}
