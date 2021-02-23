@@ -1,6 +1,7 @@
 import os
 from ooi_harvester.producer import perform_estimates
 from ooi_harvester.utils.github import get_gh
+import time
 
 import yaml
 from datetime import datetime
@@ -117,6 +118,7 @@ if __name__ == '__main__':
                 stream = request['stream']
                 name = stream['table_name']
                 config_json = get_config_json(stream, meta_dict)
+                ready = False
                 if not repo_exists(gh, GH_DATA_ORG, name):
                     print(
                         "Creating ",
@@ -130,10 +132,18 @@ if __name__ == '__main__':
                         description=f"{stream['stream_type']} | {stream['stream_content']}",
                         private=False,
                     )
-                    # Update config yaml file
-                    contents = repo.get_contents(
-                        CONFIG_PATH_STR, ref=GH_MAIN_BRANCH
-                    )
+                    while not ready:
+                        print("Waiting for repo to be ready ...")
+                        # wait until repo is ready
+                        try:
+                            contents = repo.get_contents(
+                                CONFIG_PATH_STR, ref=GH_MAIN_BRANCH
+                            )
+                            ready = True
+                        except Exception:
+                            ready = False
+
+                        time.sleep(10)
                     repo.update_file(
                         CONFIG_PATH_STR,
                         message="Updating stream configuration",
