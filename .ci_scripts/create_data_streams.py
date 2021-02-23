@@ -68,10 +68,9 @@ def list_metas():
         # containing folder.
         if meta_dir in ['example', '.DS_Store', '.ipynb_checkpoints', 'test']:
             continue
-        path = os.path.abspath(
-            os.path.join(instrument_directory_name, meta_dir)
-        )
-        yield path
+        path_str = os.path.join(instrument_directory_name, meta_dir)
+        path = os.path.abspath(path_str)
+        yield path, path_str
 
 
 def get_config_json(st, meta_dict):
@@ -98,7 +97,8 @@ if __name__ == '__main__':
     exit_code = 0
     gh = get_gh()
     template_repo = gh.get_repo(os.path.join(GH_DATA_ORG, 'stream_template'))
-    for meta_path in list_metas():
+    this_repo = gh.get_repo(os.path.join(GH_DATA_ORG, 'staged-harvest'))
+    for meta_path, path_str in list_metas():
         print_rate_limiting_info(gh, 'GH_PAT')
         meta_file = Path(meta_path).joinpath('meta.yaml')
         if meta_file.exists():
@@ -173,3 +173,14 @@ if __name__ == '__main__':
                     print(
                         os.path.join(GH_DATA_ORG, name), "exists! Skipping ..."
                     )
+
+        # Cleaning after success
+        meta_contents = this_repo.get_contents(
+            os.path.join(path_str, 'meta.yaml'), ref=GH_MAIN_BRANCH
+        )
+        template_repo.delete_file(
+            meta_contents.path,
+            message=f'Clean up {meta_contents.path}',
+            sha=meta_contents.sha,
+            branch=GH_MAIN_BRANCH,
+        )
