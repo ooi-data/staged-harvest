@@ -188,7 +188,7 @@ if __name__ == '__main__':
         meta_contents = this_repo.get_contents(
             os.path.join(path_str, 'meta.yaml'), ref=GH_MAIN_BRANCH
         )
-        template_repo.delete_file(
+        this_repo.delete_file(
             meta_contents.path,
             message=f'Clean up {meta_contents.path}',
             sha=meta_contents.sha,
