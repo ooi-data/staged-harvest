@@ -4,18 +4,25 @@ on:
   push:
     branches:
       - main
-  # schedule:
-  #   - cron:  '*/5 * * * *'
+  schedule:
+    - cron:  '*/5 * * * *'
+  workflow_dispatch:
+
+env:
+  CONDA_ENV: harvester
+  PYTHON_VERSION: 3.8
 
 jobs:
   create-harvests:
     if: github.repository == 'ooi-data/staged-harvest'
     name: Create instruments harvest
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.GH_PAT }}
 
       - name: Prevent multiple jobs running in parallel
         id: conversion_lock
@@ -27,14 +34,55 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Run instrument harvest creation
+      - name: Run instrument harvest check
+        id: harvest_check
         # outcome is evaluated before continue-on-error above
         if: ${{ steps.conversion_lock.outcome == 'success' }}
         run: |
             # Avoid wasting CI time if there are no harvest ready for conversion
             if [ "$(ls instruments/*/meta.yaml | grep -v instruments/example/meta.yaml --count)" -eq 0 ]; then
               echo "No new instrument harvest found, exiting..."
+              echo "::set-output name=run_harvest::no"
               exit 0
             fi
-            echo "Creating instrument harvest from the meta."
-            source ./.ci_scripts/create_harvests
+            echo "::set-output name=run_harvest::yes"
+
+      - name: Setup python
+        uses: actions/setup-python@v1
+        if: steps.harvest_check.outputs.run_harvest == 'yes'
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+      - name: Cache conda
+        uses: actions/cache@v2
+        if: steps.harvest_check.outputs.run_harvest == 'yes'
+        env:
+          # Increase this value to reset cache if environment.yaml has not changed
+          CACHE_NUMBER: 0
+        with:
+          path: ~/conda_pkgs_dir
+          key: ${{ runner.os }}-conda-${{ env.CACHE_NUMBER }}-${{ hashFiles('environment.yaml') }}
+      - name: Setup miniconda
+        if: steps.harvest_check.outputs.run_harvest == 'yes'
+        uses: conda-incubator/setup-miniconda@v2
+        with:
+          activate-environment: ${{ env.CONDA_ENV }}
+          environment-file: environment.yaml
+          python-version: ${{ env.PYTHON_VERSION }}
+          auto-activate-base: false
+          use-only-tar-bz2: true
+      - name: Print conda env
+        if: steps.harvest_check.outputs.run_harvest == 'yes'
+        shell: bash -l {0}
+        run: |
+          conda info
+          conda list
+      - name: Run instrument stream creation
+        shell: bash -l {0}
+        env:
+          AWS_KEY: ${{ secrets.AWS_KEY }}
+          AWS_SECRET: ${{ secrets.AWS_SECRET }}
+          OOI_USERNAME: ${{ secrets.OOI_USERNAME }}
+          OOI_TOKEN: ${{ secrets.OOI_TOKEN }}
+          GH_PAT: ${{ secrets.GH_PAT }}
+        run: |
+          python .ci_scripts/create_data_streams.py
