@@ -66,7 +66,7 @@ def list_metas():
         # to be helpful.
         # .DS_Store is created by macOS to store custom attributes of its
         # containing folder.
-        if meta_dir in ['example', '.DS_Store', '.ipynb_checkpoints']:
+        if meta_dir in ['example', '.DS_Store', '.ipynb_checkpoints', 'test']:
             continue
         path = os.path.abspath(
             os.path.join(instrument_directory_name, meta_dir)
