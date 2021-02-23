@@ -18,9 +18,9 @@ dependencies:
   - lxml
   - gspread==3.6
   - fastparquet
-  - pygithub
   - siphon
   - prefect>=0.14
   - rechunker
   - pip:
       - git+https://github.com/ooi-data/ooi-harvester.git@main
+      - git+https://github.com/ooi-data/PyGithub.git@dev
