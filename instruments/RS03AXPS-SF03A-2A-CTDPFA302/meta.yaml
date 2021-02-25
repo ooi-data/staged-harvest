@@ -1,0 +1,10 @@
+extra_attributes: {}
+harvest_config:
+  refresh: true
+  test: false
+instrument:
+  name: RS03AXPS-SF03A-2A-CTDPFA302
+output:
+  format: zarr
+  target:
+    urlpath: s3://ooi-data
