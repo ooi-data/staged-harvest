@@ -1,15 +1,13 @@
 instrument:
-    name: example
+  name: example
 
 harvest_config:
-    refresh: True
-    frequency: daily
-    skip_harvest: False
-    skip_stream: ''
-    
+  refresh: true
+  test: false
+
 output:
-  format: zarr
+  format: zarr # [NOT IMPLEMENTED]
   target:
     urlpath: s3://ooi-data
-    
-extra_attributes: {}
+
+extra_attributes: {} # [NOT IMPLEMENTED]
