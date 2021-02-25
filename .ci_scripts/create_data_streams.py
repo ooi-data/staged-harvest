@@ -174,10 +174,6 @@ if __name__ == '__main__':
                         sha=readme.sha,
                         branch=GH_MAIN_BRANCH,
                     )
-
-                    # Dispatching workflow
-                    data_request = repo.get_workflow('data-request.yaml')
-                    data_request.create_dispatch(GH_MAIN_BRANCH)
                     print("DONE. Data request workflow has been dispatched.")
                 else:
                     print(
