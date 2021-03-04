@@ -144,13 +144,6 @@ if __name__ == '__main__':
                             ready = False
 
                         time.sleep(10)
-                    repo.update_file(
-                        CONFIG_PATH_STR,
-                        message="Updating stream configuration",
-                        content=yaml.dump(config_json),
-                        sha=contents.sha,
-                        branch=GH_MAIN_BRANCH,
-                    )
 
                     # TODO: Retrieve More Stream/Instrument descriptions/text
                     readme_text = textwrap.dedent(
@@ -172,6 +165,13 @@ if __name__ == '__main__':
                         message="Updating readme text",
                         content=readme_text,
                         sha=readme.sha,
+                        branch=GH_MAIN_BRANCH,
+                    )
+                    repo.update_file(
+                        CONFIG_PATH_STR,
+                        message="Updating stream configuration",
+                        content=yaml.dump(config_json),
+                        sha=contents.sha,
                         branch=GH_MAIN_BRANCH,
                     )
                     print("DONE. Data request workflow has been dispatched.")
