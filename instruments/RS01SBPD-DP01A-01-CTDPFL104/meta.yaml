@@ -1,0 +1,10 @@
+extra_attributes: {}
+harvest_config:
+  refresh: true
+  test: false
+instrument:
+  name: RS01SBPD-DP01A-01-CTDPFL104
+output:
+  format: zarr
+  target:
+    urlpath: s3://ooi-data

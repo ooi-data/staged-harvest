@@ -1,0 +1,10 @@
+extra_attributes: {}
+harvest_config:
+  refresh: true
+  test: false
+instrument:
+  name: RS03AXPD-DP03A-03-FLNTUA302
+output:
+  format: zarr
+  target:
+    urlpath: s3://ooi-data

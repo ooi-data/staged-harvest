@@ -1,0 +1,10 @@
+extra_attributes: {}
+harvest_config:
+  refresh: true
+  test: false
+instrument:
+  name: RS03ASHS-MJ03B-10-CTDPFB304
+output:
+  format: zarr
+  target:
+    urlpath: s3://ooi-data
