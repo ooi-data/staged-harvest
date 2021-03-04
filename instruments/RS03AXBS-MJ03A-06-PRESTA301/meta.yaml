@@ -1,0 +1,10 @@
+extra_attributes: {}
+harvest_config:
+  refresh: true
+  test: false
+instrument:
+  name: RS03AXBS-MJ03A-06-PRESTA301
+output:
+  format: zarr
+  target:
+    urlpath: s3://ooi-data

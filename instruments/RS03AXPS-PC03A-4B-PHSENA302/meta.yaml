@@ -1,0 +1,10 @@
+extra_attributes: {}
+harvest_config:
+  refresh: true
+  test: false
+instrument:
+  name: RS03AXPS-PC03A-4B-PHSENA302
+output:
+  format: zarr
+  target:
+    urlpath: s3://ooi-data

@@ -1,0 +1,10 @@
+extra_attributes: {}
+harvest_config:
+  refresh: true
+  test: false
+instrument:
+  name: RS03AXPS-PC03A-4A-DOSTAD303
+output:
+  format: zarr
+  target:
+    urlpath: s3://ooi-data

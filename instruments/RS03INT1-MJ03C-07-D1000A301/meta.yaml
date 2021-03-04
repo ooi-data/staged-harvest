@@ -1,0 +1,10 @@
+extra_attributes: {}
+harvest_config:
+  refresh: true
+  test: false
+instrument:
+  name: RS03INT1-MJ03C-07-D1000A301
+output:
+  format: zarr
+  target:
+    urlpath: s3://ooi-data
