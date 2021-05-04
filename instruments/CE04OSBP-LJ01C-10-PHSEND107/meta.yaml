@@ -1,0 +1,10 @@
+extra_attributes: {}
+harvest_config:
+  refresh: true
+  test: false
+instrument:
+  name: CE04OSBP-LJ01C-10-PHSEND107
+output:
+  format: zarr
+  target:
+    urlpath: s3://ooi-data

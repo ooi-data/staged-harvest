@@ -1,0 +1,10 @@
+extra_attributes: {}
+harvest_config:
+  refresh: true
+  test: false
+instrument:
+  name: CE09OSSM-MFD37-03-CTDBPE000
+output:
+  format: zarr
+  target:
+    urlpath: s3://ooi-data

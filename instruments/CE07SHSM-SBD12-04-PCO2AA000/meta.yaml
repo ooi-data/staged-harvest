@@ -1,0 +1,10 @@
+extra_attributes: {}
+harvest_config:
+  refresh: true
+  test: false
+instrument:
+  name: CE07SHSM-SBD12-04-PCO2AA000
+output:
+  format: zarr
+  target:
+    urlpath: s3://ooi-data

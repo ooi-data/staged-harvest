@@ -1,0 +1,10 @@
+extra_attributes: {}
+harvest_config:
+  refresh: true
+  test: false
+instrument:
+  name: CE07SHSM-MFD35-02-PRESFB000
+output:
+  format: zarr
+  target:
+    urlpath: s3://ooi-data
