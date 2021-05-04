@@ -1,0 +1,10 @@
+extra_attributes: {}
+harvest_config:
+  refresh: true
+  test: false
+instrument:
+  name: CE07SHSM-RID27-04-DOSTAD000
+output:
+  format: zarr
+  target:
+    urlpath: s3://ooi-data

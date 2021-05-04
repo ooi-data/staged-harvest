@@ -1,0 +1,10 @@
+extra_attributes: {}
+harvest_config:
+  refresh: true
+  test: false
+instrument:
+  name: CE01ISSP-SP001-10-PARADJ000
+output:
+  format: zarr
+  target:
+    urlpath: s3://ooi-data

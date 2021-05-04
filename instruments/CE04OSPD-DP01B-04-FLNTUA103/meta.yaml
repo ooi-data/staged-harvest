@@ -1,0 +1,10 @@
+extra_attributes: {}
+harvest_config:
+  refresh: true
+  test: false
+instrument:
+  name: CE04OSPD-DP01B-04-FLNTUA103
+output:
+  format: zarr
+  target:
+    urlpath: s3://ooi-data
