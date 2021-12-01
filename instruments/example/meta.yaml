@@ -2,6 +2,7 @@ instrument:
   name: example
 
 harvest_config:
+  goldcopy: false
   refresh: true
   test: false
 
