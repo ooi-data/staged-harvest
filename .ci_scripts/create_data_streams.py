@@ -1,6 +1,4 @@
 import os
-from ooi_harvester.producer import perform_estimates
-from ooi_harvester.utils.github import get_gh
 import time
 
 import yaml
@@ -10,6 +8,8 @@ import textwrap
 from pathlib import Path
 
 from ooi_harvester.config import GH_DATA_ORG, CONFIG_PATH_STR, GH_MAIN_BRANCH
+from ooi_harvester.producer import perform_estimates
+from ooi_harvester.utils.github import get_gh
 
 instrument_directory_name = 'instruments'
 
