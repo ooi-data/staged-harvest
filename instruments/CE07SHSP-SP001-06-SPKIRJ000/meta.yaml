@@ -1,0 +1,11 @@
+extra_attributes: {}
+harvest_config:
+  goldcopy: false
+  refresh: true
+  test: false
+instrument:
+  name: CE07SHSP-SP001-06-SPKIRJ000
+output:
+  format: zarr
+  target:
+    urlpath: s3://ooi-data

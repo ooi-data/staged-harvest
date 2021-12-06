@@ -1,0 +1,11 @@
+extra_attributes: {}
+harvest_config:
+  goldcopy: false
+  refresh: true
+  test: false
+instrument:
+  name: CE07SHSM-SBD12-05-WAVSSA000
+output:
+  format: zarr
+  target:
+    urlpath: s3://ooi-data

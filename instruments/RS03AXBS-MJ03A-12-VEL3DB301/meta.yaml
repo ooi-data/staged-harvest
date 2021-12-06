@@ -1,0 +1,11 @@
+extra_attributes: {}
+harvest_config:
+  goldcopy: false
+  refresh: true
+  test: false
+instrument:
+  name: RS03AXBS-MJ03A-12-VEL3DB301
+output:
+  format: zarr
+  target:
+    urlpath: s3://ooi-data

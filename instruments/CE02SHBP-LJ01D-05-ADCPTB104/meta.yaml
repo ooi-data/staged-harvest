@@ -1,0 +1,11 @@
+extra_attributes: {}
+harvest_config:
+  goldcopy: false
+  refresh: true
+  test: false
+instrument:
+  name: CE02SHBP-LJ01D-05-ADCPTB104
+output:
+  format: zarr
+  target:
+    urlpath: s3://ooi-data
