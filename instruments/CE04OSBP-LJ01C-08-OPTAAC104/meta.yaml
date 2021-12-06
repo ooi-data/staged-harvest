@@ -1,0 +1,11 @@
+extra_attributes: {}
+harvest_config:
+  goldcopy: false
+  refresh: true
+  test: false
+instrument:
+  name: CE04OSBP-LJ01C-08-OPTAAC104
+output:
+  format: zarr
+  target:
+    urlpath: s3://ooi-data
