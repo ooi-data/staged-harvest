@@ -1,0 +1,11 @@
+extra_attributes: {}
+harvest_config:
+  goldcopy: false
+  refresh: true
+  test: false
+instrument:
+  name: RS01SUM1-LJ01B-12-VEL3DB104
+output:
+  format: zarr
+  target:
+    urlpath: s3://ooi-data
