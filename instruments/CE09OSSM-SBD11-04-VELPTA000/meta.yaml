@@ -1,0 +1,11 @@
+extra_attributes: {}
+harvest_config:
+  goldcopy: false
+  refresh: true
+  test: false
+instrument:
+  name: CE09OSSM-SBD11-04-VELPTA000
+output:
+  format: zarr
+  target:
+    urlpath: s3://ooi-data
