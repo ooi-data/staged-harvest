@@ -1,0 +1,11 @@
+extra_attributes: {}
+harvest_config:
+  goldcopy: false
+  refresh: true
+  test: false
+instrument:
+  name: CE04OSPS-SF01B-3D-SPKIRA102
+output:
+  format: zarr
+  target:
+    urlpath: s3://ooi-data
